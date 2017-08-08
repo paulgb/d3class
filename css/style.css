@@ -1,0 +1,30 @@
+.content {
+    width: 60%;
+
+}
+
+.floater {
+    width: 40%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    border: 1px solid red;
+}
+
+.exercise {
+    border: 1px dotted #eaa;
+    padding: 8px;
+    margin: 0 -8px;
+}
+
+/* ACE Editor Customizations */
+
+.ace_gutter-layer {
+    background: white;
+    color: #ccc;
+}
+
+.ace_hidden-cursors {
+    display: none;
+}
+

@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title>{{ page.title }}</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.8/ace.js"></script>
+        <script src="/js/interact.js"></script>
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+        <link rel="stylesheet" href="/css/style.css" />
+    </head>
+    <body>
+        <div class="content">
+        {{ content }}
+        </div>
+        <div class="floater" id="sandbox">
+        </div>
+        <script>
+            enableInteractForAll('.content pre code');
+        </script>
+    </body>
+</html>
