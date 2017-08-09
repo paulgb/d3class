@@ -8,7 +8,7 @@ title: Simple Scatter Plot
 So far, we've worked with data coded directly into the JavaScript. In the real world, we'll usually want to load data from an external source. For common use cases, like loading a CSV file from a file on the same server, D3 has helper functions. `d3.csv` takes a relative URL and a callback function. It asynchronously loads the file in the background, converts the CSV rows to JavaScript objects, and passes them as a list to the callback function.
 
     console.log('Fetching data.');
-    d3.csv("/data/iris.csv", (data) => {
+    d3.csv("data/iris.csv", (data) => {
         window.iris = data;
         console.log('Data received.');
     });
