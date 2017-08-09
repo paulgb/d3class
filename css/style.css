@@ -11,23 +11,25 @@ body {
 /* Layout */
 
 .body-wrap {
-    width: 960px;
+    width: 1200px;
     margin: auto;
 }
 
 .content {
     width: 600px;
+    /*
     margin-left: 30px;
     margin-right: 30px;
+    */
     margin-bottom: 100px;
 }
 
 .floater {
-    width: 300px;
+    width: 600px;
     margin-left: 660px;
     position: fixed;
     border: 1px solid #eee;
-    min-height: 200px;
+    min-height: 400px;
 }
 
 .exercise {

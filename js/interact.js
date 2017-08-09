@@ -33,7 +33,8 @@ class RunnableEditor {
         editor.setOptions({
             maxLines: 20,
             highlightActiveLine: false,
-            showFoldWidgets: false
+            showFoldWidgets: false,
+            showLineNumbers: false
             //showGutter: false
         });
         editor.$blockScrolling = Infinity;
