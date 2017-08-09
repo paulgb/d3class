@@ -51,6 +51,7 @@ class RunnableEditor {
 
     runSnippit() {
         this.outputContainer.innerText = '';
+        this.outputContainer.classList.remove('error');
         var code = this.editor.getValue();
 
         var c = {
@@ -66,6 +67,7 @@ class RunnableEditor {
                 this.outputContainer.innerText += result;
             }    
         } catch (err) {
+            this.outputContainer.classList.add('error');
             this.outputContainer.innerText += `Error: ${err}\n`;
             return;
         }

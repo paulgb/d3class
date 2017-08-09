@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: sandbox
 title: Intro to Data Binding
 ---
 ## Selectors
