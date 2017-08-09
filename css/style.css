@@ -1,20 +1,29 @@
-.content {
-    width: 60%;
+/* Global */
 
+body {
+    font-family: 'Manuale', serif;
+}
+
+/* Layout */
+
+.content {
+    width: 600px;
+    margin-left: 30px;
+    margin-right: 30px;
 }
 
 .floater {
-    width: 40%;
+    width: 300px;
+    margin-left: 660px;
     position: fixed;
-    top: 0;
-    right: 0;
-    border: 1px solid red;
+    border: 1px solid #eee;
+    min-height: 200px;
 }
 
 .exercise {
     border: 1px dotted #eaa;
     padding: 8px;
-    margin: 0 -8px;
+    margin: 10px -8px;
 }
 
 /* ACE Editor Customizations */
