@@ -70,15 +70,12 @@ We will start by defining accessor functions that return the `x` and `y` variabl
     yAccessor = /* your code here */
 </div>
 
-We need an `<svg>` element to draw in, so let's create it. While we're at it, we'll create variables for the width and height of the plot.
+To make scales for our plot, we will need to know how big our chart will be. I'll use 600 by 400 because that's the size of the sandbox.
 
     chartWidth = 600;
     chartHeight = 400;
-    svg = d3.select('#sandbox').append('svg')
-      .attr('width', chartWidth)
-      .attr('height', chartHeight);
 
-Using the what we know about scales, we can 
+Using the what we know about scales, we create scales for each axis.
 
     xScale = d3.scaleLinear()
         .domain([0, d3.max(iris, xAccessor)])
@@ -92,10 +89,20 @@ Using the what we know about scales, we can
 
 Why does the yScale use `[chartHeight, 0]` as the range, instead of `[0, chartHeight]` to mirror `xScale`?
 
-*Hint: If you are stumped, try changing it to `[0, chartHeight] and running through the following cells to produce the chart.*
+*Hint: If you are stumped, try changing it to `[0, chartHeight]` before you run the following cells.*
 </div>
 
+We need an `<svg>` element to draw in, so let's create it. While we're at it, we'll create variables for the width and height of the plot.
+
+    d3.selectAll('#sandbox *').remove();
+    svg = d3.select('#sandbox').append('svg')
+      .attr('width', chartWidth)
+      .attr('height', chartHeight);
+
+
 ## Plotting Circles
+
+
 
     svg.selectAll('circle')
        .data(iris)
@@ -104,4 +111,4 @@ Why does the yScale use `[chartHeight, 0]` as the range, instead of `[0, chartHe
        .attr('cx', (d) => xScale(xAccessor(d)))
        .attr('cy', (d) => yScale(yAccessor(d)))
        .attr('r', 2)
-       .attr('fill', 'black')
+       .attr('fill', 'black');
