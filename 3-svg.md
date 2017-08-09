@@ -12,7 +12,7 @@ Shapes in SVG are elements just like the `<div>` elements we have already seen. 
     svg = d3.select('#sandbox')
       .append('svg')
       .style('width', '100%')
-      .style('height', '300px')
+      .style('height', '400px')
       .style('border', '1px solid blue');
 
 Now drawing shapes is as easy as `append`ing them to the SVG element:

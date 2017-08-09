@@ -47,7 +47,7 @@ class RunnableEditor {
         });
 
         this.editor = editor;
-
+        this.container = container;
     }
 
     runSnippit() {
@@ -70,6 +70,7 @@ class RunnableEditor {
         } catch (err) {
             this.outputContainer.classList.add('error');
             this.outputContainer.innerText += `Error: ${err}\n`;
+            this.container.scrollIntoView();
             return;
         }
 
