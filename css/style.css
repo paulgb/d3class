@@ -38,6 +38,10 @@ body {
     margin: 10px -15px;
 }
 
+.exercise h3 {
+    margin: 0px;
+}
+
 /* ACE Editor Customizations */
 
 .ace_gutter-layer {

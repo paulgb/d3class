@@ -36,16 +36,16 @@ or standard deviation:
 
 ## Scales
 
-Unlike the contrived election example from earlier, real world data is often not in units that work in screen units. In the iris dataset, for example, the petal widths range from 1.0 to 6.9. Seven pixels is not enough resolution to represent these data.
+Unlike the contrived election example from earlier, real world data is often not in units that work in screen units. In the iris dataset, for example, the petal widths range from 1.0 to 6.9. If we were to apply these directly as screen coordinates we'd only have six pixels of resolution.
 
-Fortunately, D3 includes **scales** to make mappings between units. The simplest and most common is the linear scale, which scales uniformly between two ranges of numbers. For example, here's a scale that transforms fractional quantities into percents.
+Fortunately, D3 includes **scales** to make mappings between units. Here's a scale that transforms fractional quantities into percents.
 
     myscale = d3.scaleLinear()
       .domain([0, 1])
       .range([0, 100]);
     myscale(0.45);
 
-t
+Notice that `myscale` works as a function. The `domain()` call proides two values in the original units, and the `range()` call provides the values you'd like the `domain()` values to translate to in the new units. All other values are interpolated by D3.
 
     celsiusToFahrenheit = d3.scaleLinear()
       .domain([0, 100])
@@ -56,17 +56,52 @@ Scales can also be inverted, so we can use the same scale to convert from Fahren
 
     celsiusToFahrenheit.invert(140);
 
-t
+## Building the Chart
 
-    chartWidth = 200;
-    chartHeight = 200;
+We now have the foundation we need to build a scatterplot. Suppose we are interested in the relationship between sepal length and petal length. We will plot the sepal length as the X axis and petal length as the Y axis.
+
+{::options parse_block_html="true" /}
+<div class="exercise">
+### Exercise 1
+
+We will start by defining accessor functions that return the `x` and `y` variables we care about from each row of data. Fill in the `yAccessor` function.
+
+    xAccessor = (d) => d.sepal_length;
+    yAccessor = /* your code here */
+</div>
+
+We need an `<svg>` element to draw in, so let's create it. While we're at it, we'll create variables for the width and height of the plot.
+
+    chartWidth = 600;
+    chartHeight = 400;
     svg = d3.select('#sandbox').append('svg')
       .attr('width', chartWidth)
       .attr('height', chartHeight);
 
-t
+Using the what we know about scales, we can 
 
-    xs = d3.scaleLinear().domain([-1, 1]).range([6, 10])
-    xs(0.4)
+    xScale = d3.scaleLinear()
+        .domain([0, d3.max(iris, xAccessor)])
+        .range([0, chartWidth]);
+    yScale = d3.scaleLinear()
+        .domain([0, d3.max(iris, yAccessor)])
+        .range([chartHeight, 0]);
+
+<div class="exercise">
+### Exercise 2
+
+Why does the yScale use `[chartHeight, 0]` as the range, instead of `[0, chartHeight]` to mirror `xScale`?
+
+*Hint: If you are stumped, try changing it to `[0, chartHeight] and running through the following cells to produce the chart.*
+</div>
 
 ## Plotting Circles
+
+    svg.selectAll('circle')
+       .data(iris)
+       .enter()
+       .append('circle')
+       .attr('cx', (d) => xScale(xAccessor(d)))
+       .attr('cy', (d) => yScale(yAccessor(d)))
+       .attr('r', 2)
+       .attr('fill', 'black')
