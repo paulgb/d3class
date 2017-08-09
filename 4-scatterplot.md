@@ -36,4 +36,37 @@ or standard deviation:
 
 ## Scales
 
+Unlike the contrived election example from earlier, real world data is often not in units that work in screen units. In the iris dataset, for example, the petal widths range from 1.0 to 6.9. Seven pixels is not enough resolution to represent these data.
+
+Fortunately, D3 includes **scales** to make mappings between units. The simplest and most common is the linear scale, which scales uniformly between two ranges of numbers. For example, here's a scale that transforms fractional quantities into percents.
+
+    myscale = d3.scaleLinear()
+      .domain([0, 1])
+      .range([0, 100]);
+    myscale(0.45);
+
+t
+
+    celsiusToFahrenheit = d3.scaleLinear()
+      .domain([0, 100])
+      .range([32, 212]);
+    celsiusToFahrenheit(35);
+
+Scales can also be inverted, so we can use the same scale to convert from Fahrenheit to Celsius:
+
+    celsiusToFahrenheit.invert(140);
+
+t
+
+    chartWidth = 200;
+    chartHeight = 200;
+    svg = d3.select('#sandbox').append('svg')
+      .attr('width', chartWidth)
+      .attr('height', chartHeight);
+
+t
+
+    xs = d3.scaleLinear().domain([-1, 1]).range([6, 10])
+    xs(0.4)
+
 ## Plotting Circles

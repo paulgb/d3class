@@ -62,16 +62,58 @@ Let's draw some shapes that overlap:
 
     svg.append('circle')
       .attr('cx', 50)
-      .attr('cy', 60)
+      .attr('cy', 160)
       .attr('r', 20)
       .attr('fill', 'green');
     
     svg.append('circle')
       .attr('cx', 80)
-      .attr('cy', 60)
+      .attr('cy', 160)
       .attr('r', 20)
       .attr('fill', 'purple');
 
+Note that the shapes are drawn in the order that we add them, so the second circle covers the first in the overlapping area.
 
 ## Groups
 
+Sometimes its useful to group shapes into an object that you can manipulate as a unit. This can be accomplished with the **group** element `<g>`.
+
+    group = svg.append('g');
+    group.append('circle')
+        .attr('r', 30)
+        .attr('fill', 'none')
+        .attr('stroke', 'red')
+        .attr('stroke-width', 5);
+    group.append('line')
+        .attr('x1', -22)
+        .attr('y1', -22)
+        .attr('x2', 22)
+        .attr('y2', 22)
+        .attr('stroke', 'red')
+        .attr('stroke-width', 5);
+
+The group now has a red circle and a line (the universal sign of prohibition.) Now if we want to move it, we can give the group a `transform` attribute that moves all of the elements at once:
+
+    group.attr('transform', 'translate(65, 160)');
+
+{::options parse_block_html="true" /}
+<div class="exercise">
+### Exercise 2
+
+The following code creates two overlapping circles, first a red one, into the group `g2`, and then a blue one, into the group `g1`. Before running the code, think about which circle will overlap the other.
+
+    g1 = svg.append('g');
+    g2 = svg.append('g');
+    g2.append('circle')
+      .attr('cx', 100)
+      .attr('cy', 230)
+      .attr('r', 30)
+      .attr('fill', 'blue');
+    g1.append('circle')
+      .attr('cx', 120)
+      .attr('cy', 230)
+      .attr('r', 30)
+      .attr('fill', 'red');
+
+The result may surprise you, and it demonstrates another important use of groups: they allow you to decouple the drawing order from the order that you create shape elements in. You can think of groups as "layers" that are drawn together.
+</div>
