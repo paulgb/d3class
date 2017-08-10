@@ -40,6 +40,7 @@ class RunnableEditor {
         });
         editor.$blockScrolling = Infinity;
         editor.setValue(code, -1);
+        editor.setShowPrintMargin(false);
         editor.commands.addCommand({
             name: 'run',
             bindKey: {win: 'Ctrl-Enter',  mac: 'Ctrl-Enter'},
