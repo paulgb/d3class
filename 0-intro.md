@@ -3,7 +3,9 @@ layout: sandbox
 ---
 ## Introduction
 
-This site contains a series of tutorials about visualizing data with [D3.js](https://d3js.org/).
+[D3.js](https://d3js.org/) is a powerful tool for turning data into rich, interactive documents. The tutorials in this series will introduce the core concepts of D3, with an inclination towards its use in data visualization.
+
+### Interactivity
 
 The tutorials are interactive. That means that when you see a JavaScript code block like this:
 
@@ -28,7 +30,7 @@ Run this code to draw a big red box in the sandbox.
 
 ### JavaScript Console
 
-One invaluable tool for any JavaScript development is the console. The console is hidden away but easily accessible. In Chrome, `Ctrl + Shift + J` (Windows/Linux) or `Cmd + Shift + J` (Mac) will open the console.
+One valuable tool for any JavaScript development is the console. The console is hidden away but easily accessible. In Chrome, `Ctrl + Shift + J` (Windows/Linux) or `Cmd + Shift + J` (Mac) will open the console.
 
 You can use `console.log` to insert logging statements into your JavaScript code. They will then appear in the console. In the tutorial cells, they are also copied under the cell for convenience.
 

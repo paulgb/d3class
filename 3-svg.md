@@ -3,6 +3,8 @@ layout: sandbox
 title: SVG Graphics
 ---
 
+# SVG
+
 We've seen how to create a bar chart with HTML, but beyond that example we become limited pretty quickly by what HTML can do.
 
 That's where [Scalable Vector Graphics](https://developer.mozilla.org/en-US/docs/Web/SVG) (SVG) come in. SVG is a way of creating graphical primitives like circles, lines, and rectangles inside an HTML page.
@@ -13,12 +15,12 @@ Shapes in SVG are elements just like the `<div>` elements we have already seen. 
       .append('svg')
       .style('width', '100%')
       .style('height', '400px')
-      .style('border', '1px solid blue');
+      .style('border', '1px solid deepskyblue');
 
 Now drawing shapes is as easy as `append`ing them to the SVG element:
 
     circ = svg.append('circle')
-      .attr('fill', 'blue')
+      .attr('fill', 'lightcoral')
       .attr('r', 10);
 
 By default, the circle is centered at the "origin", the point `(0, 0)`. Note that the origin is the upper-left corner of the area. This means that the `x` coordinates increase to the *right* and the `y` coordinates increase going *down*. We can use the `cx` and `cy` attributes to position it:
@@ -31,7 +33,7 @@ Rectangles are easy too:
     svg.append('rect')
       .attr('x', 70)
       .attr('y', 80)
-      .attr('fill', 'red')
+      .attr('fill', 'indigo')
       .attr('height', 20)
       .attr('width', 40);
 
@@ -72,7 +74,7 @@ Let's draw some shapes that overlap:
       .attr('r', 20)
       .attr('fill', 'purple');
 
-Note that the shapes are drawn in the order that we add them, so the second circle covers the first in the overlapping area.
+Note that the shapes are drawn in the order that we create them, so the second circle covers the first in the overlapping area.
 
 ## Groups
 
@@ -100,7 +102,7 @@ The group now has a red circle and a line (the universal sign of prohibition.) N
 <div class="exercise">
 ### Exercise 2
 
-The following code creates two overlapping circles, first a red one, into the group `g2`, and then a blue one, into the group `g1`. Before running the code, think about which circle will overlap the other.
+The following code creates two overlapping circles, first an orange one, into the group `g2`, and then a blue one, into the group `g1`. Before running the code, think about which circle will overlap the other.
 
     g1 = svg.append('g');
     g2 = svg.append('g');
@@ -108,12 +110,12 @@ The following code creates two overlapping circles, first a red one, into the gr
       .attr('cx', 100)
       .attr('cy', 230)
       .attr('r', 30)
-      .attr('fill', 'blue');
+      .attr('fill', 'orangered');
     g1.append('circle')
       .attr('cx', 120)
       .attr('cy', 230)
       .attr('r', 30)
-      .attr('fill', 'red');
+      .attr('fill', 'midnightblue');
 
-The result may surprise you, and it demonstrates another important use of groups: they allow you to decouple the drawing order from the order that you create shape elements in. You can think of groups as "layers" that are drawn together.
+The result may surprise you, and it demonstrates another important use of groups: they allow you to decouple the drawing order from the order that you create shape elements in. You can think of groups as "layers" in an image editor: each layer is rendered on top of the last.
 </div>

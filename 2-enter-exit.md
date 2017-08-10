@@ -3,28 +3,29 @@ layout: sandbox
 title: Enter and Exit Groups
 ---
 
+# Enter / Exit
+
 So far, we've seen that if we have some elements on a page, and the *same number* of items in a list, we can use D3's data binding to associate each element with an item.
 
 Then, as we saw in Exercise 2, when there are fewer elements in the selection than the data, the extra data items are ignored. Likewise, when there are more elements than data, the elements that aren't associated with data are not affected.
 
-D3 doesn't just forget about these elements and data, though. It exposes them as `enter` and `exit` groups.
+D3 doesn't just ignore these leftover elements and data, though. It exposes them as `enter` and `exit` groups.
 
 ## Enter
 
-Since we're starting with an empty sandbox, the selection of all elements will be empty:
+In the last tutorial, we selected all `<div>`s under the sandbox with `d3.selectAll('#sandbox div')`. Another way of writing this is:
 
     d3.select('#sandbox')
-      .selectAll('div')
-      .size();
+      .selectAll('div');
 
-I want you to notice a few things here:
+I want to point out a couple of things here:
 - `select` is like `selectAll`, except that it will select only the first matching element. Here I could have used `selectAll`, since there is only one element with the ID `'sandbox'`, but using `select` makes the intention of the code clearer.
 - `selectAll` (and `select`) can be called *on another selection* to select elements which are inside any of the elements in that selection. So the code above will select the element with the ID `'sandbox'`, and then any `<div>` elements inside of that.
 
 Even though the selection is empty, let's create some data and bind it.
 
-    var numbers = [1, 2, 3, 4, 5];
-    var selection = d3.select('#sandbox')
+    numbers = [1, 2, 3, 4, 5];
+    selection = d3.select('#sandbox')
       .selectAll('div')
       .data(numbers);
 
@@ -47,7 +48,7 @@ We can call `append` on the enter group to add elements for each data point:
 
 In this case the enter group contained all of the data because we started without any elements (in other words, the selection was empty). Now that we have created some elements, let's see what happens when we bind more data:
 
-    var newSelection = d3.select('#sandbox')
+    newSelection = d3.select('#sandbox')
       .selectAll('div')
       .data([10, 20, 30, 40, 50, 60, 70]);
 
@@ -69,7 +70,7 @@ Just as before, we can use `append` to create elements for the new data.
 
 Notice that the old values didn't change! That's because the `text` call only applied to the `enter` group, so old data points were not included. We'd like it to apply to both the old and new elements, so we have to `merge` in the selection:
 
-    var anotherSelection = d3.select('#sandbox')
+    anotherSelection = d3.select('#sandbox')
       .selectAll('div')
       .data([2, 4, 6, 8, 10, 12, 14, 16]);
 
@@ -85,7 +86,7 @@ Notice that the old values didn't change! That's because the `text` call only ap
 
 Sometimes the situation is reversed: we have more elements than we have data. In this case, just as the `enter` group represents data without elements, the `exit` group represents the elements without data.
 
-    var anotherOtherSelection = d3.select('#sandbox')
+    anotherOtherSelection = d3.select('#sandbox')
       .selectAll('div')
       .data(['one', 'two', 'three', 'four'])
       .text((d) => d);

@@ -23,6 +23,7 @@ class RunnableEditor {
         container.appendChild(editorElement);
 
         this.outputContainer = document.createElement('pre');
+        this.outputContainer.classList.add('output');
         container.appendChild(this.outputContainer);
 
         element.parentNode.replaceChild(container, element);

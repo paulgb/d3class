@@ -4,8 +4,13 @@ body {
     font-family: 'Manuale', serif;
 }
 
-.error {
-    color: red;
+a {
+    color: #44a;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #849;
 }
 
 /* Layout */
@@ -40,6 +45,14 @@ body {
 
 .exercise h3 {
     margin: 0px;
+}
+
+.output {
+    color: #66c;
+}
+
+.output.error {
+    color: red;
 }
 
 /* ACE Editor Customizations */

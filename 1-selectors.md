@@ -28,16 +28,18 @@ Similarly, we can change style attributes of a selection:
 
     d3.selectAll('#sandbox div').style('color', 'orangered');
 
-If you have used jQuery before, this should all look very familiar. Since you probably know of D3 as a data visualization tool, you might wonder what selecting HTML elements has to do with creating rich graphics. The connection lies in a feature of D3 selections called **data binding**.
+If you have used jQuery before, this will all look familiar.
 
 ## Data Binding
+
+Since you probably know of D3 as a data visualization tool, you might wonder what selecting HTML elements has to do with creating rich graphics. The connection lies in a feature of D3 selections called **data binding**.
 
 Let's say we have the following results of a vote:
 
     results = [
         {name: 'Jane', votes: 190},
-        {name: 'Mike', votes: 155},
-        {name: 'Loki', votes: 170}
+        {name: 'Loki', votes: 170},
+        {name: 'Mike', votes: 155}
     ];
 
 Note that we created three `<div>`s above, which is the same number of candidates we have. With data binding, we can associate each one of `<div>` elements with a candidate, and change the text of the div to be the candidate's name.
@@ -46,7 +48,7 @@ Note that we created three `<div>`s above, which is the same number of candidate
     s.data(results);
     s.text((d) => d.name);
 
-Under the hood, what D3 is doing is taking the list of elements in the selection, and the list `results`, and walking them in lock-step. I like to visualize it in my head as a zipper where the teeth on one side are the HTML elements and the teeth on the other side are the data.
+Under the hood, what D3 is doing is taking the list of elements in the selection, and the list `results`, and lining them up in order.
 
 The `text()` method is the same one we've seen already, but instead of a string literal ("boogie"), we give it an accessor function. `(d) => d.name` is a function that takes an object and returns the value in its `name` field. Here it is in isolation:
 
@@ -84,7 +86,7 @@ This works because whenever possible, methods of a D3 selection **return the sel
 <div class="exercise">
 ### Exercise 2
 
-Modify the bar chart example so that the number of votes is included in the text in the `<div>`, e.g. "Jame (190)".
+Modify the bar chart example so that the number of votes is included in the text in the `<div>`, e.g. "Jane (190)".
 
 *Hint: the data is already bound, so you don't have to call `data`.*
 
