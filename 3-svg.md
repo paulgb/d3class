@@ -119,3 +119,14 @@ The following code creates two overlapping circles, first an orange one, into th
 
 The result may surprise you, and it demonstrates another important use of groups: they allow you to decouple the drawing order from the order that you create shape elements in. You can think of groups as "layers" in an image editor: each layer is rendered on top of the last.
 </div>
+
+## Paths
+
+Paths in SVG are a series of lines (or curves) that connect in a sequence.
+
+    svg.append('path')
+        .attr('stroke', 'black')
+        .attr('fill', 'none')
+        .attr('d', 'M100 50 L150 100 L100 100 L50 50 Z');
+
+The paths consist of a mini-language in their own right, which you can read more about in the [Mozilla SVG documentation](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths).
