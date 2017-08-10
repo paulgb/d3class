@@ -2,6 +2,7 @@
 layout: page
 title: D3 Tutorials
 ---
+# D3 Tutorial Series
 
 - [0. Intro](0-intro)
 - [1. Selectors](1-selectors)
