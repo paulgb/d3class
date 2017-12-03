@@ -2,6 +2,8 @@
 
 body {
     font-family: 'Manuale', serif;
+    padding: 0;
+    margin: 0;
 }
 
 a {
@@ -16,31 +18,40 @@ a:visited {
 /* Layout */
 
 .body-wrap {
-    width: 1200px;
     margin: auto;
 }
 
 .content {
-    width: 600px;
-    /*
-    margin-left: 30px;
-    margin-right: 30px;
-    */
+    width: 50%;
     margin-bottom: 100px;
 }
 
+.content-inner {
+    padding: 0 6px;
+}
+
+div.highlight {
+    margin-right: 2px;
+}
+
 .floater {
-    width: 600px;
-    margin-left: 660px;
+    width: 50%;
     position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding: 3px;
+}
+
+#sandbox {
+    height: 100%;
+    width: 100%;
     border: 1px solid #eee;
-    min-height: 400px;
 }
 
 .exercise {
     border: 1px dotted #eaa;
-    padding: 15px;
-    margin: 10px -15px;
+    padding: 10px;
 }
 
 .exercise h3 {
@@ -49,10 +60,15 @@ a:visited {
 
 .output {
     color: #66c;
+    overflow: scroll;
 }
 
 .output.error {
     color: red;
+}
+
+hr {
+    display: none;
 }
 
 /* ACE Editor Customizations */
@@ -65,4 +81,3 @@ a:visited {
 .ace_hidden-cursors {
     display: none;
 }
-

@@ -10,15 +10,50 @@
     </head>
     <body>
         <div class="body-wrap">
-            <div class="floater" id="sandbox">
+            <div class="floater">
+                <div id="sandbox">
+                </div>
+                <button id="reset_sandbox" style="position: absolute; bottom: 8px; left: 8px;">reset sandbox</button>
             </div>
             <div class="content">
-            <a href="index">&lt;&lt; Back to Table of Contents</a>
-            {{ content }}
+                <div class="content-inner">
+                    <a href="index">&lt;&lt; Back to Table of Contents</a>
+                    <a id="slides"></a>
+                    {{ content }}
+                </div>
             </div>
         </div>
         <script>
             enableInteractForAll('.content pre code');
+
+            d3.select('#reset_sandbox').on('click', () => d3.select('#sandbox').selectAll('*').remove());
+
+            if (document.location.href.endsWith('#slides')) {
+                d3.selectAll('hr').style('display', 'block').style('border', 'none').style('height', '100%');
+
+                d3.selectAll('div.exercise').each(function () {
+                    var time = this.getAttribute('time');
+                    if (time) {
+                        elem = d3.select(this);
+                        elem.append('button')
+                            .text(`timer (${time}s)`)
+                            .on('click', () => {
+                                elem.append('div')
+                                    .style('border', '1px solid #ddd')
+                                    .style('margin-top', '9px')
+                                    .style('height', '20px')
+                                    .style('border-radius', '3px')
+                                    .append('div')
+                                        .style('width', '0%')
+                                        .style('height', '100%')
+                                        .style('background', '#aac')
+                                        .transition().duration(time * 1000).ease(d3.easeLinear)
+                                            .style('width', '100%')
+                                        
+                        });
+                    }
+                });
+            }
         </script>
     </body>
 </html>
