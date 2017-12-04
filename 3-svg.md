@@ -9,13 +9,17 @@ We've seen how to create a bar chart with HTML, but beyond that example we becom
 
 That's where [Scalable Vector Graphics](https://developer.mozilla.org/en-US/docs/Web/SVG) (SVG) come in. SVG is a way of creating graphical primitives like circles, lines, and rectangles inside an HTML page.
 
+---
+
 Shapes in SVG are elements just like the `<div>` elements we have already seen. The only thing special about them is that they have to be inside of an `<svg>` element. Let's create one with D3:
 
     svg = d3.select('#sandbox')
       .append('svg')
       .style('width', '100%')
-      .style('height', '400px')
+      .style('height', '100%')
       .style('border', '1px solid deepskyblue');
+
+---
 
 Now drawing shapes is as easy as `append`ing them to the SVG element:
 
@@ -23,12 +27,14 @@ Now drawing shapes is as easy as `append`ing them to the SVG element:
       .attr('fill', 'lightcoral')
       .attr('r', 10);
 
-By default, the circle is centered at the "origin", the point `(0, 0)`. Note that the origin is the upper-left corner of the area. This means that the `x` coordinates increase to the *right* and the `y` coordinates increase going *down*. We can use the `cx` and `cy` attributes to position it:
+By default, the circle is centered at the "origin", the point `(0, 0)`. The origin is the upper-left corner of the area. This means that the `x` coordinates increase to the *right* and the `y` coordinates increase going *down*. **Compared to standard plotting coordinates, this is upside-down.** We can use the `cx` and `cy` attributes to position it:
 
     circ.attr('cx', 30)
       .attr('cy', 50);
 
-Rectangles are easy too:
+---
+
+**Rectangles** are easy too:
 
     svg.append('rect')
       .attr('x', 70)
@@ -37,9 +43,11 @@ Rectangles are easy too:
       .attr('height', 20)
       .attr('width', 40);
 
-Note that rectangles use `x` and `y` rather than `cx` and `cy`. That's because rectangles are positioned from their upper-left corner instead of their center.
+Rectangles use `x` and `y` rather than `cx` and `cy`. That's because rectangles are positioned from their upper-left corner instead of their center.
 
-We can also draw lines:
+---
+
+We can also draw **lines**:
 
     line = svg.append('line')
       .attr('x1', 60)
@@ -48,8 +56,10 @@ We can also draw lines:
       .attr('y2', 40)
       .attr('stroke', 'black');
 
+---
+
 {::options parse_block_html="true" /}
-<div class="exercise">
+<div class="exercise" time="300">
 ### Exercise 1
 
 Create a line from the center of the circle to the center of the rectangle.
@@ -57,6 +67,8 @@ Create a line from the center of the circle to the center of the rectangle.
     svg.append('line') /* Your code here. */
 
 </div>
+
+---
 
 ## Drawing Order
 
@@ -76,6 +88,8 @@ Let's draw some shapes that overlap:
 
 Note that the shapes are drawn in the order that we create them, so the second circle covers the first in the overlapping area.
 
+---
+
 ## Groups
 
 Sometimes its useful to group shapes into an object that you can manipulate as a unit. This can be accomplished with the **group** element `<g>`.
@@ -94,9 +108,11 @@ Sometimes its useful to group shapes into an object that you can manipulate as a
         .attr('stroke', 'red')
         .attr('stroke-width', 5);
 
-The group now has a red circle and a line (the universal sign of prohibition.) Now if we want to move it, we can give the group a `transform` attribute that moves all of the elements at once:
+The group now has a red circle and a line (the international prohibition sign.) Now if we want to move it, we can give the group a `transform` attribute that moves all of the elements at once:
 
     group.attr('transform', 'translate(65, 160)');
+
+---
 
 {::options parse_block_html="true" /}
 <div class="exercise">
@@ -117,8 +133,10 @@ The following code creates two overlapping circles, first an orange one, into th
       .attr('r', 30)
       .attr('fill', 'midnightblue');
 
-The result may surprise you, and it demonstrates another important use of groups: they allow you to decouple the drawing order from the order that you create shape elements in. You can think of groups as "layers" in an image editor: each layer is rendered on top of the last.
+The result may surprise you, and it demonstrates another important use of groups: **they allow you to decouple the drawing order from the order that you create shape elements in**. You can think of groups as "layers" in an image editor: each layer is rendered on top of the last.
 </div>
+
+---
 
 ## Paths
 
@@ -129,4 +147,4 @@ Paths in SVG are a series of lines (or curves) that connect in a sequence.
         .attr('fill', 'none')
         .attr('d', 'M100 50 L150 100 L100 100 L50 50 Z');
 
-The paths consist of a mini-language in their own right, which you can read more about in the [Mozilla SVG documentation](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths).
+The paths are specified by a list of drawing instructions, which you can read more about in the [Mozilla SVG documentation](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths).

@@ -52,6 +52,7 @@ div.highlight {
 .exercise {
     border: 1px dotted #eaa;
     padding: 10px;
+    margin-bottom: 10px;
 }
 
 .exercise h3 {

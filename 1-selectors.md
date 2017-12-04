@@ -14,11 +14,15 @@ Before we start using selectors, we need something to select, so let's use stand
         <div id="d3">div 3</div>
     `;
 
+---
+
 Using D3, we can select the `<div>`s we just created with `selectAll`. As a sanity check, let's count them.
 
     d3.selectAll('#sandbox div').size();
 
 This will select all `<div>` elements that are inside of the element with the ID `'sandbox'`.
+
+---
 
 A neat thing about selectors is that we can operate on all of the items in a selection as if they were one object. Operations that would otherwise require a for-loop then become one-liners. For example, we can change the text of all the elements to "boogie".
 
@@ -37,7 +41,7 @@ If you have used jQuery before, this will all look familiar.
 
 Since you probably think of D3 as a data visualization tool, you might wonder what selecting HTML elements has to do with creating rich graphics. The connection lies in a feature of D3 selections called **data binding**.
 
-Let's say we have the following results of a vote:
+Data in D3 is 
 
     results = [
         {name: 'Jane', votes: 190},
@@ -47,11 +51,20 @@ Let's say we have the following results of a vote:
 
 ---
 
-Note that we created three `<div>`s above, which is the same number of candidates we have. With data binding, we can associate each one of `<div>` elements with a candidate, and change the text of the div to be the candidate's name.
+Note that we created three `<div>`s above, which is the same number of candidates we have. **With data binding, we can associate each one of `<div>` elements with a candidate**, and change the text of the div to be the candidate's name.
 
     s = d3.selectAll('#sandbox div');
     s.data(results);
     s.text((d) => d.name);
+
+---
+
+Think of data binding as zipping a zipper: on one side you have HTML elements, and on the other you have a JavaScript list. D3 pairs up the individual elements with the associated data point and sets a hidden property of each element to its datum.
+
+<figure style="width: 30%; margin: auto;">
+<img src="images/zipper.jpg" style="width: 100%;" />
+<figcaption style="font-size: 50%;">Image credit: <a href="https://www.flickr.com/photos/guysie/14347814577/">Guy Sie</a> (CC BY-SA 2.0)</figcaption>
+</figure>
 
 ---
 
@@ -101,7 +114,7 @@ This works because whenever possible, methods of a D3 selection **return the sel
 
 Modify the bar chart example so that the number of votes is included in the text in the `<div>`, e.g. "Jane (190)".
 
-*Hint: the data is already bound, so you don't have to call `data`.*
+*Hints: the data is already bound, so you don't have to call `data`. The `+` operator concatenates strings, or you could use [template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals).*
 
     s = d3.selectAll('#sandbox div');
     // Your code here.

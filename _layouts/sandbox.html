@@ -35,6 +35,7 @@
                     var time = this.getAttribute('time');
                     if (time) {
                         elem = d3.select(this);
+                        ((elem) => {
                         elem.append('button')
                             .text(`timer (${time}s)`)
                             .on('click', () => {
@@ -49,8 +50,8 @@
                                         .style('background', '#aac')
                                         .transition().duration(time * 1000).ease(d3.easeLinear)
                                             .style('width', '100%')
-                                        
-                        });
+                            });
+                        })(elem);
                     }
                 });
             }

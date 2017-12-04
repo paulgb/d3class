@@ -6,6 +6,8 @@ title: Simple Scatter Plot
 
 In this exercise we will create a scatterplot of the famous [Iris data set](https://en.wikipedia.org/wiki/Iris_flower_data_set).
 
+---
+
 ## Loading Data
 
 So far, we've worked with data coded directly into the JavaScript. In the real world, we'll usually want to load data from an external source. For common use cases, like loading a CSV file from a file on the same server, D3 has helper functions. `d3.csv` takes a relative URL and a callback function. It asynchronously loads the file in the background, converts the CSV rows to JavaScript objects, and passes them as a list to the callback function.
@@ -19,13 +21,17 @@ So far, we've worked with data coded directly into the JavaScript. In the real w
 
 This style of asynchronous programming might be unfamiliar, so I added some log statements. Compare the order they appear in the code to the order that they appear in the output. Notice that code execution in the outer scope continues *before the data is returned from the server*.
 
-This is important to note because it means we can't use the fetched data immediately, we can only use it inside the callback. In this case, we assign the data to the `iris` global as soon as we get it (`window` represents the global namespace.)
+This is important to note because it means we can't use the fetched data immediately, **we can only use it inside the callback**. In this case, we assign the data to the `iris` global as soon as we get it (`window` represents the global namespace.)
+
+---
 
 Let's take the first 3 (`.slice(0, 3)`) values from the data, and pretty-print them (`JSON.stringify()`).
 
     JSON.stringify(iris.slice(0, 3), null, 2);
 
 Compare these to the [original .csv file](data/iris.csv). See how D3 converted the rows into objects, using the first row of column names as object fields.
+
+---
 
 ## Statistics
 
@@ -36,6 +42,8 @@ D3 implements a few [basic statistics](https://github.com/d3/d3-array/blob/maste
 or standard deviation:
 
     d3.deviation(iris, (d) => d.petal_width);
+
+---
 
 ## Scales
 
@@ -51,6 +59,8 @@ Fortunately, D3 includes **scales** to make mappings between units. For example,
 
 The resulting `myscale` can be used as a function that takes in one unit and returns another. The `domain()` call takes a list of two values in the input unit, and the `range()` call takes a list of their respective values in the desired output coordinates. The scale then interpolates all other values.
 
+---
+
 Here's another example. This one converts Celsius temperatures to Fahrenheit.
 
     celsiusToFahrenheit = d3.scaleLinear()
@@ -63,12 +73,16 @@ Scales can also be inverted, so we can use the same scale to convert from Fahren
 
     celsiusToFahrenheit.invert(140);
 
+---
+
 ## Building the Chart
 
 We now have the foundation we need to build a scatterplot. Suppose we are interested in the relationship between petal length and petal width. Let's plot the petal length as the X axis and petal width as the Y axis.
 
+---
+
 {::options parse_block_html="true" /}
-<div class="exercise">
+<div class="exercise" time="45">
 ### Exercise 1
 
 We will start by defining accessor functions that return the `x` and `y` variables we care about from each row of data. Fill in the `yAccessor` function.
@@ -77,10 +91,14 @@ We will start by defining accessor functions that return the `x` and `y` variabl
     yAccessor = /* your code here */
 </div>
 
-To make scales for our plot, we will need to know how big our chart will be. I'll use 600 by 400 because that's the size of the sandbox.
+---
 
-    chartWidth = 600;
-    chartHeight = 400;
+To make scales for our plot, we will need to know how big our chart will be. We'll make the chart as big of the sandbox by grabbing that element's dimensions.
+
+    bbox = d3.select('#sandbox')
+             .node().getBoundingClientRect();
+    chartWidth = bbox.width;
+    chartHeight = bbox.height;
 
 Using the what we know about scales, we create scales for each axis.
 
@@ -91,21 +109,27 @@ Using the what we know about scales, we create scales for each axis.
         .domain([0, d3.max(iris, yAccessor)])
         .range([chartHeight, 0]);
 
+---
+
 <div class="exercise">
 ### Exercise 2
 
 Why does the yScale use `[chartHeight, 0]` as the range, instead of `[0, chartHeight]` to mirror `xScale`?
-
-*Hint: If you are stumped, try changing it to `[0, chartHeight]` before you run the following cells.*
 </div>
+
+---
 
 We need an `<svg>` element to draw in, so let's create it. While we're at it, we'll create variables for the width and height of the plot.
 
+    // Clears the sandbox in case you are running this cell
+    // for a second time.
     d3.selectAll('#sandbox *').remove();
+
     svg = d3.select('#sandbox').append('svg')
       .attr('width', chartWidth)
       .attr('height', chartHeight);
 
+---
 
 ## Plotting Circles
 
@@ -120,6 +144,8 @@ Now that we have the scales, we can use what we've already seen to bind the data
        .attr('r', 2)
        .attr('fill', 'black');
 
+---
+
 See how the circles go right to the edge? That's because we used the whole space of the chart in the scale. To shrink the plotting area, we can reduce the range by some margin.
 
     margin = 40;
@@ -133,6 +159,8 @@ See how the circles go right to the edge? That's because we used the whole space
         .attr('cx', (d) => newXScale(xAccessor(d)))
         .attr('cy', (d) => newYScale(yAccessor(d)));
 
+---
+
 ## Axis Ticks
 
 A bunch of circles can only tell us so much without an indication of the scale. Let's add axis ticks.
@@ -143,8 +171,11 @@ For example:
 
     bottomAxisBuilder = d3.axisBottom(newXScale);
     bottomAxisGroup = svg.append('g')
-        .attr('transform', `translate(0, ${chartHeight - 30})`);
+        .attr('transform',
+              `translate(0, ${chartHeight - 30})`);
     bottomAxisBuilder(bottomAxisGroup);
+
+---
 
 In D3, `bottomAxisBuilder(bottomAxisGroup)` is equivalent to `bottomAxisGroup.call(bottomAxisBuilder)`, as long as you don't care about the return value. So a more idiomatic way of building an axis is this:
 
@@ -152,12 +183,16 @@ In D3, `bottomAxisBuilder(bottomAxisGroup)` is equivalent to `bottomAxisGroup.ca
         .attr('transform', 'translate(40, 0)')
         .call(d3.axisLeft(newYScale));
 
+---
+
 ## Categorical Colors
 
 The data represent three different species of iris. Let's see what they are.
 
     species = d3.map(iris, (d) => d.species).keys();
     species;
+
+---
 
 Let's represent the species of each iris as the color of its dot in the scatterplot. Just as we used linear scales to translate between numerical units, we can use scales from categories to colors.
 
@@ -167,6 +202,8 @@ Let's represent the species of each iris as the color of its dot in the scatterp
     
     svg.selectAll('circle')
         .attr('fill', (d) => colorScale(d.species));
+
+---
 
 ## Legend
 
@@ -179,13 +216,15 @@ Lastly, we should add a legend to make it clear what the colors mean. Just as we
         .data(species)        
         .enter()
         .append('g')
-        .attr('transform', (d, i) => `translate(0, ${i * 20})`);
+        .attr('transform',
+              (d, i) => `translate(0, ${i * 20})`);
 
     legendItems.append('rect')
         .attr('height', 14)
         .attr('width', 14)
         .attr('y', 2)
-        .attr('fill', (d) => colorScale(d));
+        .attr('fill',
+              (d) => colorScale(d));
 
     legendItems.append('text')
         .attr('alignment-baseline', 'hanging')
