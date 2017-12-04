@@ -9,3 +9,4 @@ title: D3 Tutorial Slides
 - [2. Enter/Exit](2-enter-exit#slides)
 - [3. SVG](3-svg#slides)
 - [4. Scatterplot](4-scatterplot#slides)
+- [5. Line Plots](5-lineplot)
