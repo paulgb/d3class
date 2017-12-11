@@ -61,7 +61,7 @@ div.highlight {
 
 .output {
     color: #66c;
-    overflow: scroll;
+    overflow: auto;
 }
 
 .output.error {
